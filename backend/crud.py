@@ -19,14 +19,14 @@ def add_purchase_history(db: Session, product_code: str, quantity: int, total_pr
     return purchase
 
 # Transactions テーブルにデータを追加
-def add_transaction(db: Session, total_amount: float):
+def add_transaction(db: Session, total_amount: float, emp_code: str, store_code: str, pos_no: str):
     transaction = Transactions(
         DATETIME=datetime.now(),
-        EMP_CD='EMP001',  # 仮の従業員コードを使用。適宜変更してください。
-        STORE_CD='99999',  # 仮の店舗コードを使用。適宜変更してください。
-        POS_NO='001',  # 仮のPOS番号を使用。適宜変更してください。
+        EMP_CD=emp_code,
+        STORE_CD=store_code,
+        POS_NO=pos_no,
         TOTAL_AMT=total_amount,
-        TTL_AMT_EX_TAX=total_amount / 1.1  # 消費税を含まない金額。10%税として仮定
+        TTL_AMT_EX_TAX=total_amount / 1.1  # 消費税を含まない金額（10%税として仮定）
     )
     db.add(transaction)
     db.commit()
